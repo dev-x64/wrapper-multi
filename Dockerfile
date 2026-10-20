@@ -10,7 +10,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         build-essential cmake unzip git ca-certificates aria2 \
     && rm -rf /var/lib/apt/lists/*
 RUN aria2c -o ndk.zip https://dl.google.com/android/repository/android-ndk-r${NDK_VERSION}b-linux.zip \
-    && unzip -q ndk.zip && mv android-ndk-r${NDK_VERSION}b android-ndk-r23b && rm ndk.zip
+    && unzip -q ndk.zip \
+    && if [ "${NDK_VERSION}" != 23 ]; then mv android-ndk-r${NDK_VERSION}b android-ndk-r23b; fi \
+    && rm ndk.zip
 COPY CMakeLists.txt import.h ./
 COPY lite ./lite
 COPY rootfs ./rootfs

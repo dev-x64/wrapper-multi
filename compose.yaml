@@ -1,6 +1,8 @@
 services:
   wrapper:
     build: .
+    # The Android NDK toolchain is x86_64-only.
+    platform: linux/amd64
     volumes:
       - ./rootfs/data:/app/rootfs/data
     ports:
